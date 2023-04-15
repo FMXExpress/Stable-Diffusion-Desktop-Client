@@ -24,6 +24,8 @@ It also features a REST integration with Replicate.com for providing Generate Im
 # Stable Diffusion Desktop client Screeshot on Windows
 ![Stable Diffusion Desktop client on Windows](/screenshot.jpg)
 
+Requires [Skia4Delphi](https://github.com/skia4delphi/skia4delphi) to compile.
+
 Other Delphi AI clients:
 
 [Stable Diffusion Text To Image Prompts](https://github.com/FMXExpress/Stable-Diffusion-Text-To-Image-Prompts)
