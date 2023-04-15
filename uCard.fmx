@@ -1,0 +1,490 @@
+object CardFrame: TCardFrame
+  Size.Width = 648.000000000000000000
+  Size.Height = 727.000000000000000000
+  Size.PlatformDefault = False
+  OnResize = FrameResize
+  object Layout1: TLayout
+    Align = Top
+    Position.X = 50.000000000000000000
+    Size.Width = 598.000000000000000000
+    Size.Height = 41.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object MenuButton: TButton
+      Align = Right
+      Position.X = 554.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'ellipseseditbutton'
+      TabOrder = 0
+    end
+    object NameLabel: TLabel
+      Align = Left
+      StyledSettings = [Family, Size, FontColor]
+      HitTest = True
+      Margins.Left = 3.000000000000000000
+      Position.X = 3.000000000000000000
+      Size.Width = 200.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.WordWrap = False
+      TabOrder = 1
+      OnClick = ProfileCircleClick
+    end
+    object FollowButton: TButton
+      Align = Left
+      Position.X = 203.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 3
+      Text = 'follow'
+      Visible = False
+      OnClick = FollowButtonClick
+    end
+  end
+  object Layout2: TLayout
+    Align = Top
+    Margins.Left = 3.000000000000000000
+    Margins.Top = 3.000000000000000000
+    Margins.Right = 3.000000000000000000
+    Margins.Bottom = 3.000000000000000000
+    Position.X = 53.000000000000000000
+    Position.Y = 556.000000000000000000
+    Size.Width = 592.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object Layout3: TLayout
+      Align = MostLeft
+      Size.Width = 89.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      Visible = False
+      TabOrder = 0
+      object LoveButton: TButton
+        Align = MostLeft
+        Size.Width = 44.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'toolbutton'
+        TabOrder = 2
+        OnClick = LoveButtonClick
+        object Glyph1: TGlyph
+          Margins.Left = 3.000000000000000000
+          Margins.Top = 3.000000000000000000
+          Margins.Right = 3.000000000000000000
+          Margins.Bottom = 3.000000000000000000
+          Align = Client
+          Opacity = 0.500000000000000000
+          Size.Width = 38.000000000000000000
+          Size.Height = 38.000000000000000000
+          Size.PlatformDefault = False
+          ImageIndex = 0
+          Images = MainForm.ImageList1
+        end
+      end
+      object CommentButton: TButton
+        Align = Left
+        Position.X = 44.000000000000000000
+        Size.Width = 44.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'toolbutton'
+        TabOrder = 1
+        OnClick = CommentButtonClick
+        object Glyph2: TGlyph
+          Margins.Left = 3.000000000000000000
+          Margins.Top = 3.000000000000000000
+          Margins.Right = 3.000000000000000000
+          Margins.Bottom = 3.000000000000000000
+          Align = Client
+          Opacity = 0.500000000000000000
+          Size.Width = 38.000000000000000000
+          Size.Height = 38.000000000000000000
+          Size.PlatformDefault = False
+          ImageIndex = 1
+          Images = MainForm.ImageList1
+        end
+      end
+    end
+    object DownloadButton: TButton
+      Align = Right
+      Hint = 'Save To File'
+      Opacity = 0.500000000000000000
+      Position.X = 548.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'organizetoolbutton'
+      TabOrder = 4
+      OnClick = DownloadButtonClick
+    end
+    object GoButton: TButton
+      Align = Left
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'toolbutton'
+      TabOrder = 1
+      Visible = False
+      OnClick = GoButtonClick
+      object Glyph3: TGlyph
+        Margins.Left = 3.000000000000000000
+        Margins.Top = 3.000000000000000000
+        Margins.Right = 3.000000000000000000
+        Margins.Bottom = 3.000000000000000000
+        Align = Client
+        Opacity = 0.500000000000000000
+        Size.Width = 38.000000000000000000
+        Size.Height = 38.000000000000000000
+        Size.PlatformDefault = False
+        ImageIndex = 2
+        Images = MainForm.ImageList1
+      end
+    end
+    object EditPromptButton: TButton
+      Align = Left
+      Hint = 'Edit Prompt'
+      Opacity = 0.500000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'composetoolbutton'
+      TabOrder = 3
+      OnClick = EditPromptButtonClick
+    end
+    object CopyPromptButton: TButton
+      Align = Left
+      Hint = 'Copy Prompt'
+      Opacity = 0.500000000000000000
+      Position.X = 44.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'actiontoolbutton'
+      TabOrder = 2
+      OnClick = CopyPromptButtonClick
+    end
+  end
+  object DescLabel: TLabel
+    Align = Top
+    AutoSize = True
+    StyledSettings = [Family, Size, FontColor]
+    Margins.Left = 6.000000000000000000
+    Margins.Top = 6.000000000000000000
+    Margins.Right = 6.000000000000000000
+    Margins.Bottom = 6.000000000000000000
+    Position.X = 56.000000000000000000
+    Position.Y = 609.000000000000000000
+    Size.Width = 586.000000000000000000
+    Size.Height = 16.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TabOrder = 4
+  end
+  object TimeLabel: TLabel
+    Align = Top
+    AutoSize = True
+    StyledSettings = [Family]
+    Margins.Left = 6.000000000000000000
+    Margins.Top = 3.000000000000000000
+    Margins.Right = 6.000000000000000000
+    Margins.Bottom = 3.000000000000000000
+    Position.X = 56.000000000000000000
+    Position.Y = 634.000000000000000000
+    Size.Width = 586.000000000000000000
+    Size.Height = 14.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 10.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claDimgray
+    Text = 'Created at '
+    TabOrder = 3
+  end
+  object Layout4: TLayout
+    Align = MostLeft
+    Size.Width = 50.000000000000000000
+    Size.Height = 727.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 15
+    object Line1: TLine
+      Align = Contents
+      LineType = Left
+      Margins.Left = 25.000000000000000000
+      Size.Width = 25.000000000000000000
+      Size.Height = 727.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = x37FFFFFF
+      Stroke.Thickness = 2.000000000000000000
+    end
+    object ProfileCircle: TCircle
+      Align = Top
+      Fill.Bitmap.WrapMode = TileStretch
+      Fill.Kind = Bitmap
+      Margins.Left = 3.000000000000000000
+      Margins.Top = 13.000000000000000000
+      Margins.Right = 3.000000000000000000
+      Margins.Bottom = 3.000000000000000000
+      Position.X = 3.000000000000000000
+      Position.Y = 13.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 38.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      OnClick = ProfileCircleClick
+    end
+  end
+  object FeedImage: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Align = Top
+    HitTest = False
+    Position.X = 50.000000000000000000
+    Position.Y = 41.000000000000000000
+    Size.Width = 598.000000000000000000
+    Size.Height = 512.000000000000000000
+    Size.PlatformDefault = False
+    OnDblClick = FeedImageDblClick
+    object ProgressBar: TProgressBar
+      Align = Center
+      Orientation = Horizontal
+    end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 168
+    Top = 337
+  end
+  object Timer2: TTimer
+    Interval = 50
+    OnTimer = Timer2Timer
+    Left = 242
+    Top = 361
+  end
+  object DataMT: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'Id'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ProfileImage'
+        DataType = ftBlob
+      end
+      item
+        Name = 'Name'
+        DataType = ftString
+        Size = 56
+      end
+      item
+        Name = 'Description'
+        DataType = ftString
+        Size = 512
+      end
+      item
+        Name = 'Likes'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Comments'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Posted'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'Image'
+        DataType = ftBlob
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 160
+    Top = 80
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = DataMT
+    ScopeMappings = <>
+    Left = 160
+    Top = 264
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 116
+    Top = 157
+    object LinkPropertyToFieldFillBitmapBitmap: TLinkPropertyToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'ProfileImage'
+      Component = ProfileCircle
+      ComponentProperty = 'Fill.Bitmap.Bitmap'
+    end
+    object LinkPropertyToFieldText: TLinkPropertyToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Name'
+      Component = NameLabel
+      ComponentProperty = 'Text'
+    end
+    object LinkPropertyToFieldText4: TLinkPropertyToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Posted'
+      Component = TimeLabel
+      CustomFormat = #39'Created at '#39'+Self.Owner.FieldByName('#39'Posted'#39').Text'
+      ComponentProperty = 'Text'
+    end
+    object LinkPropertyToFieldText5: TLinkPropertyToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Description'
+      Component = DescLabel
+      CustomFormat = 'Self.Owner.FieldByName('#39'Description'#39').Text'
+      ComponentProperty = 'Text'
+    end
+    object LinkPropertyToFieldBitmap: TLinkPropertyToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Image'
+      Component = FeedImage
+      ComponentProperty = 'Bitmap'
+    end
+  end
+  object RESTRequest2: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient2
+    Params = <
+      item
+        Kind = pkHTTPHEADER
+        Name = 'Authorization'
+        Options = [poDoNotEncode]
+        Value = 'Token %api_key%'
+      end>
+    Resource = 'cqdlci7y4zbc3fnrhtctvsbucq'
+    Response = RESTResponse2
+    SynchronizedEvents = False
+    Left = 224
+    Top = 176
+  end
+  object FDMemTable2: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'completed_at'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'created_at'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'error'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'id'
+        DataType = ftWideString
+        Size = 26
+      end
+      item
+        Name = 'input'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'logs'
+        DataType = ftWideString
+        Size = 902
+      end
+      item
+        Name = 'metrics'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'output'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'started_at'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'status'
+        DataType = ftWideString
+        Size = 9
+      end
+      item
+        Name = 'urls'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'version'
+        DataType = ftWideString
+        Size = 64
+      end
+      item
+        Name = 'webhook_completed'
+        DataType = ftWideString
+        Size = 255
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 264
+    Top = 272
+  end
+  object RESTResponseDataSetAdapter2: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable2
+    FieldDefs = <>
+    Response = RESTResponse2
+    TypesMode = Rich
+    Left = 272
+    Top = 216
+  end
+  object RESTResponse2: TRESTResponse
+    ContentType = 'application/json'
+    Left = 264
+    Top = 128
+  end
+  object RESTClient2: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://api.replicate.com/v1/predictions'
+    ContentType = 'application/x-www-form-urlencoded'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 264
+    Top = 72
+  end
+  object NetHTTPClient1: TNetHTTPClient
+    UserAgent = 'Embarcadero URI Client/1.0'
+    Left = 72
+    Top = 329
+  end
+end
