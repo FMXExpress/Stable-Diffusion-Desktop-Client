@@ -56,6 +56,9 @@ type
     SessionsMT: TFDMemTable;
     BindSourceDB2: TBindSourceDB;
     LinkListControlToField2: TLinkListControlToField;
+    EnhanceButton: TButton;
+    EnhanceTimer: TTimer;
+    EnhanceMemo: TMemo;
     procedure ScrollLeftButtonClick(Sender: TObject);
     procedure ScrollRightButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -64,6 +67,8 @@ type
     procedure APIKeyButtonClick(Sender: TObject);
     procedure NewSessionButtonClick(Sender: TObject);
     procedure SessionsCBChange(Sender: TObject);
+    procedure EnhanceButtonClick(Sender: TObject);
+    procedure EnhanceTimerTimer(Sender: TObject);
   private
     { Private declarations }
     RanOnce: Boolean;
@@ -87,7 +92,6 @@ implementation
 
 uses
   System.Hash, System.IOUtils, uCircle, uCard, uDM;
-
 
 procedure TMainForm.Restore;
 var
@@ -180,6 +184,32 @@ begin
   LScene.Parent := FeedVSB;
 
   Inc(FCard);
+end;
+
+procedure TMainForm.EnhanceButtonClick(Sender: TObject);
+begin
+  EnhanceButton.Enabled := False;
+  DM.RestRequest3.Params[0].Value := 'Token ' + APIKeyEdit.Text;
+  DM.RestRequest3.Params[1].Value := EnhanceMemo.Lines.Text.Replace('%prompt%',PromptMemo.Lines.Text);
+  DM.RestRequest3.Execute;
+  DM.RestRequest4.Resource := DM.FDMemTable3.FieldByName('id').AsString;
+  EnhanceTimer.Enabled := True;
+end;
+
+procedure TMainForm.EnhanceTimerTimer(Sender: TObject);
+begin
+  EnhanceTimer.Enabled := False;
+  DM.RestRequest4.Params[0].Value := 'Token ' + APIKeyEdit.Text;
+  DM.RestRequest4.Execute;
+  if DM.FDMemTable4.FieldByName('status').AsString='succeeded' then
+  begin
+    PromptMemo.Lines.Text := DM.FDMemTable4.FieldByName('output').AsString;
+    EnhanceButton.Enabled := False;
+  end
+  else
+  begin
+    EnhanceTimer.Enabled := True;
+  end;
 end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

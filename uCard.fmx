@@ -120,7 +120,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'organizetoolbutton'
-      TabOrder = 4
+      TabOrder = 5
       OnClick = DownloadButtonClick
     end
     object GoButton: TButton
@@ -154,7 +154,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'composetoolbutton'
-      TabOrder = 3
+      TabOrder = 4
       OnClick = EditPromptButtonClick
     end
     object CopyPromptButton: TButton
@@ -166,8 +166,20 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'actiontoolbutton'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = CopyPromptButtonClick
+    end
+    object CopyImageButton: TButton
+      Align = Left
+      Hint = 'Copy as TImage Component'
+      Opacity = 0.500000000000000000
+      Position.X = 88.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'escapetoolbutton'
+      TabOrder = 2
+      OnClick = CopyImageButtonClick
     end
   end
   object DescLabel: TLabel

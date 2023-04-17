@@ -54,6 +54,7 @@ type
     Timer2: TTimer;
     EditPromptButton: TButton;
     CopyPromptButton: TButton;
+    CopyImageButton: TButton;
     procedure FollowButtonClick(Sender: TObject);
     procedure LoveButtonClick(Sender: TObject);
     procedure CommentButtonClick(Sender: TObject);
@@ -67,6 +68,7 @@ type
     procedure Timer2Timer(Sender: TObject);
     procedure EditPromptButtonClick(Sender: TObject);
     procedure CopyPromptButtonClick(Sender: TObject);
+    procedure CopyImageButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,6 +82,34 @@ implementation
 
 uses
   Unit1, System.Threading, System.DateUtils, IdHashMessageDigest, System.IOUtils;
+
+function SaveControl(AControl: TControl): String;
+var
+  LMS: TMemoryStream;
+  LSS: TStringStream;
+  LName: string;
+begin
+  LName := AControl.Name;
+  AControl.Name := '';
+  try
+    LMS := TMemoryStream.Create;
+    try
+      LMS.WriteComponent(AControl);
+      LMS.Position := 0;
+      LSS := TStringStream.Create;
+      try
+        ObjectBinaryToText(LMS, LSS);
+        Result := LSS.DataString;
+      finally
+        LSS.Free;
+      end;
+    finally
+      LMS.Free;
+    end;
+  finally
+    AControl.Name := LName;
+  end;
+end;
 
 function MD5(const AString: String): String;
 var
@@ -116,6 +146,17 @@ end;
 procedure TCardFrame.CommentsLabelClick(Sender: TObject);
 begin
   // View Comments
+end;
+
+procedure TCardFrame.CopyImageButtonClick(Sender: TObject);
+var
+  clp: IFMXClipboardService;
+begin
+  if TPlatformServices.Current.SupportsPlatformService(IFMXClipboardService) then
+  begin
+    clp := IFMXClipboardService(TPlatformServices.Current.GetPlatformService(IFMXClipboardService));
+    clp.SetClipboard(SaveControl(FeedImage));
+  end;
 end;
 
 procedure TCardFrame.CopyPromptButtonClick(Sender: TObject);

@@ -247,4 +247,106 @@ object DM: TDM
     Left = 488
     Top = 288
   end
+  object RESTClient3: TRESTClient
+    BaseURL = 'https://api.replicate.com/v1/predictions'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 80
+    Top = 256
+  end
+  object RESTRequest3: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient3
+    Method = rmPOST
+    Params = <
+      item
+        Kind = pkHTTPHEADER
+        Name = 'Authorization'
+        Options = [poDoNotEncode]
+        Value = 'Token %api_key%'
+      end
+      item
+        Kind = pkREQUESTBODY
+        Name = 'body7E86320BF8944C89A4DFC53FC1BAD6FC'
+        Value = 
+          '{"version": "d53a494f0f1f4130d39cbe574c25d267910e1fce4e7f4b34fe1' +
+          '5f22976aed332", "input": {"prompt": "%prompt%"}}'
+        ContentTypeStr = 'application/json'
+      end>
+    Response = RESTResponse3
+    SynchronizedEvents = False
+    Left = 88
+    Top = 320
+  end
+  object RESTResponse3: TRESTResponse
+    Left = 104
+    Top = 368
+  end
+  object RESTResponseDataSetAdapter3: TRESTResponseDataSetAdapter
+    Dataset = FDMemTable3
+    FieldDefs = <>
+    Response = RESTResponse3
+    TypesMode = Rich
+    Left = 120
+    Top = 392
+  end
+  object FDMemTable3: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    Left = 208
+    Top = 384
+  end
+  object RESTClient4: TRESTClient
+    BaseURL = 'https://api.replicate.com/v1/predictions'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 296
+    Top = 328
+  end
+  object RESTRequest4: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient4
+    Params = <
+      item
+        Kind = pkHTTPHEADER
+        Name = 'Authorization'
+        Options = [poDoNotEncode]
+        Value = 'Token %api_key%'
+      end>
+    Resource = '7lswsyevjzbi3otimjkwujj5e4'
+    Response = RESTResponse4
+    SynchronizedEvents = False
+    Left = 288
+    Top = 384
+  end
+  object RESTResponse4: TRESTResponse
+    Left = 368
+    Top = 352
+  end
+  object RESTResponseDataSetAdapter4: TRESTResponseDataSetAdapter
+    Dataset = FDMemTable4
+    FieldDefs = <>
+    Response = RESTResponse4
+    TypesMode = Rich
+    Left = 336
+    Top = 408
+  end
+  object FDMemTable4: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    Left = 400
+    Top = 392
+  end
 end

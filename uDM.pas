@@ -21,6 +21,16 @@ type
     RESTResponse2: TRESTResponse;
     RESTResponseDataSetAdapter2: TRESTResponseDataSetAdapter;
     FDMemTable2: TFDMemTable;
+    RESTClient3: TRESTClient;
+    RESTRequest3: TRESTRequest;
+    RESTResponse3: TRESTResponse;
+    RESTResponseDataSetAdapter3: TRESTResponseDataSetAdapter;
+    FDMemTable3: TFDMemTable;
+    RESTClient4: TRESTClient;
+    RESTRequest4: TRESTRequest;
+    RESTResponse4: TRESTResponse;
+    RESTResponseDataSetAdapter4: TRESTResponseDataSetAdapter;
+    FDMemTable4: TFDMemTable;
   private
     { Private declarations }
   public
