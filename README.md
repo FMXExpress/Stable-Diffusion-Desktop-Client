@@ -43,6 +43,8 @@ Requires [Skia4Delphi](https://github.com/skia4delphi/skia4delphi) to compile.
 
 Other Delphi AI clients:
 
+[AI Playground](https://github.com/FMXExpress/AI-Playground-DesktopClient)
+
 [Stable Diffusion Text To Image Prompts](https://github.com/FMXExpress/Stable-Diffusion-Text-To-Image-Prompts)
 
 [Generative AI Prompts](https://github.com/FMXExpress/Generative-AI-Prompts)
