@@ -120,7 +120,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'organizetoolbutton'
-      TabOrder = 5
+      TabOrder = 6
       OnClick = DownloadButtonClick
     end
     object GoButton: TButton
@@ -154,7 +154,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'composetoolbutton'
-      TabOrder = 4
+      TabOrder = 5
       OnClick = EditPromptButtonClick
     end
     object CopyPromptButton: TButton
@@ -166,7 +166,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'actiontoolbutton'
-      TabOrder = 3
+      TabOrder = 4
       OnClick = CopyPromptButtonClick
     end
     object CopyImageButton: TButton
@@ -178,8 +178,21 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'escapetoolbutton'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = CopyImageButtonClick
+    end
+    object UpscaleButton: TButton
+      Align = Left
+      Hint = 'Upscaling (right-click for more)'
+      Opacity = 0.500000000000000000
+      PopupMenu = UpscaleMenu
+      Position.X = 132.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'additembutton'
+      TabOrder = 2
+      OnClick = UpscaleButtonClick
     end
   end
   object DescLabel: TLabel
@@ -277,6 +290,38 @@ object CardFrame: TCardFrame
     OnTimer = Timer2Timer
     Left = 242
     Top = 361
+  end
+  object UpscaleMenu: TPopupMenu
+    Left = 362
+    Top = 449
+    object CodeFormerMI: TMenuItem
+      Text = 'Codeformer (Facefix)'
+      OnClick = CodeFormerMIClick
+    end
+    object RealESRGANMI: TMenuItem
+      Text = 'Real-ESRGAN'
+      OnClick = RealESRGANMIClick
+    end
+    object Swin2SRMI: TMenuItem
+      Text = 'Swin2SR'
+      OnClick = Swin2SRMIClick
+    end
+    object GFPGANMI: TMenuItem
+      Text = 'GFPGAN (Facefix)'
+      OnClick = GFPGANMIClick
+    end
+    object SwinirMI: TMenuItem
+      Text = 'Swinir'
+      OnClick = SwinirMIClick
+    end
+    object RundallesrMI: TMenuItem
+      Text = 'Rundalle-sr'
+      OnClick = RundallesrMIClick
+    end
+    object EsrganMI: TMenuItem
+      Text = 'Esrgan'
+      OnClick = EsrganMIClick
+    end
   end
   object DataMT: TFDMemTable
     Active = True

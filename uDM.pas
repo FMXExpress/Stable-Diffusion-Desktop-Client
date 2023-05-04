@@ -35,6 +35,8 @@ type
     { Private declarations }
   public
     { Public declarations }
+    function FileToBase64(const FileName: string): string;
+    function MemoryStreamToBase64(const MemoryStream: TMemoryStream): string;
   end;
 
 var
@@ -45,5 +47,59 @@ implementation
 {%CLASSGROUP 'FMX.Controls.TControl'}
 
 {$R *.dfm}
+
+uses
+  System.NetEncoding, System.Net.Mime;
+
+
+function TDM.MemoryStreamToBase64(const MemoryStream: TMemoryStream): string;
+var
+  OutputStringStream: TStringStream;
+  Base64Encoder: TBase64Encoding;
+  MimeType: string;
+begin
+  MemoryStream.Position := 0;
+  OutputStringStream := TStringStream.Create('', TEncoding.ASCII);
+  try
+    Base64Encoder := TBase64Encoding.Create;
+    try
+      Base64Encoder.Encode(MemoryStream, OutputStringStream);
+      MimeType := 'image/png';
+      Result := 'data:' + MimeType + ';base64,' + OutputStringStream.DataString;
+    finally
+      Base64Encoder.Free;
+    end;
+  finally
+    OutputStringStream.Free;
+  end;
+end;
+
+function TDM.FileToBase64(const FileName: string): string;
+var
+  InputStream: TFileStream;
+  OutputStringStream: TStringStream;
+  Base64Encoder: TBase64Encoding;
+  MimeType: string;
+  LKind: TMimeTypes.TKind;
+begin
+  InputStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
+  try
+    OutputStringStream := TStringStream.Create('', TEncoding.ASCII);
+    try
+      Base64Encoder := TBase64Encoding.Create;
+      try
+        Base64Encoder.Encode(InputStream, OutputStringStream);
+        TMimeTypes.Default.GetFileInfo(FileName,MimeType,LKind);
+        Result := 'data:' + MimeType + ';base64,' + OutputStringStream.DataString;
+      finally
+        Base64Encoder.Free;
+      end;
+    finally
+      OutputStringStream.Free;
+    end;
+  finally
+    InputStream.Free;
+  end;
+end;
 
 end.

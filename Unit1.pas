@@ -81,6 +81,7 @@ type
     procedure Restore;
     procedure AppIdle(Sender: TObject; var Done: Boolean);
     procedure NewSession(ASession: String);
+    procedure PredictionFromImageStream(AVersion, AName, ADesc: String; AMemoryStream: TMemoryStream);
   end;
 
 var
@@ -91,7 +92,7 @@ implementation
 {$R *.fmx}
 
 uses
-  System.Hash, System.IOUtils, uCircle, uCard, uDM;
+  System.Threading, System.Hash, System.IOUtils, uCircle, uCard, uDM;
 
 procedure TMainForm.Restore;
 var
@@ -128,6 +129,57 @@ begin
 
       FeedMT.Next;
     end;
+end;
+
+procedure TMainForm.PredictionFromImageStream(AVersion, AName, ADesc: String; AMemoryStream: TMemoryStream);
+begin
+
+  var LMS := TMemoryStream.Create;
+  LMS.LoadFromStream(AMemoryStream);
+
+  TTask.Run(procedure begin
+
+    var LUpscaleJson := '{"version": "%version%", "input": {"image":"%base64%"}}';
+
+    if AVersion='9283608cc6b7be6b65a8e44983db012355fde4132009bf99d976b2f0896856a3' then
+    begin
+      LUpscaleJson := LUpscaleJson.Replace('"image"','"img"');
+    end;
+
+    DM.RestRequest1.Params[0].Value := 'Token ' + APIKeyEdit.Text;
+    DM.RestRequest1.Params[1].Value := LUpscaleJson.Replace('%version%',AVersion).Replace('%base64%',DM.MemoryStreamToBase64(LMS)).Replace(#13#10,'');
+
+    DM.RestRequest1.Execute;
+
+    TThread.Synchronize(nil,procedure begin
+      var LId := DM.FDMemTable1.FieldByName('id').AsWideString;
+
+      var LScene := TLayout.Create(Self);
+      var LCard := TCardFrame.Create(Self);
+      LCard.Name := 'Card'+FCard.ToString;
+      LCard.Hint := LId;
+      LCard.FMainFeedMT := FeedMT;
+      LCard.Align := TAlignLayout.Client;
+      LCard.DataMT.DisableControls;
+      LCard.DataMT.Append;
+      LCard.DataMT.CopyRecord(TemplateMT);
+      LCard.DataMT.FieldByName('Name').AsString := AName;
+      LCard.DataMT.FieldByName('Description').AsString := ADesc;
+     // LCard.DataMT.FieldByName('Description').AsString := LOutput;
+      LCard.DataMT.Post;
+      LCard.DataMT.EnableControls;
+      LCard.Position.Y := 999999999;
+      LCard.NameLabel.AutoSize := True;
+      LScene.Height := LCard.Height;
+      LCard.Parent := LScene;
+      LScene.Align := TAlignLayout.Top;
+      LScene.Parent := FeedVSB;
+
+      Inc(FCard);
+    end);
+
+    LMS.Free;
+  end);
 end;
 
 procedure TMainForm.APIKeyButtonClick(Sender: TObject);

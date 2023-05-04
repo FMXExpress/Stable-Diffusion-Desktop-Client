@@ -12,7 +12,7 @@ uses
   System.Bindings.Outputs, Fmx.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, FMX.ImgList, REST.Types, REST.Client,
   REST.Response.Adapter, Data.Bind.ObjectScope, System.Net.URLClient,
-  System.Net.HttpClient, System.Net.HttpClientComponent, FMX.Platform;
+  System.Net.HttpClient, System.Net.HttpClientComponent, FMX.Platform, FMX.Menus;
 
 type
   TCardFrame = class(TFrame)
@@ -55,6 +55,15 @@ type
     EditPromptButton: TButton;
     CopyPromptButton: TButton;
     CopyImageButton: TButton;
+    UpscaleButton: TButton;
+    UpscaleMenu: TPopupMenu;
+    CodeFormerMI: TMenuItem;
+    RealESRGANMI: TMenuItem;
+    Swin2SRMI: TMenuItem;
+    GFPGANMI: TMenuItem;
+    SwinirMI: TMenuItem;
+    RundallesrMI: TMenuItem;
+    EsrganMI: TMenuItem;
     procedure FollowButtonClick(Sender: TObject);
     procedure LoveButtonClick(Sender: TObject);
     procedure CommentButtonClick(Sender: TObject);
@@ -69,11 +78,20 @@ type
     procedure EditPromptButtonClick(Sender: TObject);
     procedure CopyPromptButtonClick(Sender: TObject);
     procedure CopyImageButtonClick(Sender: TObject);
+    procedure CodeFormerMIClick(Sender: TObject);
+    procedure RealESRGANMIClick(Sender: TObject);
+    procedure Swin2SRMIClick(Sender: TObject);
+    procedure GFPGANMIClick(Sender: TObject);
+    procedure UpscaleButtonClick(Sender: TObject);
+    procedure SwinirMIClick(Sender: TObject);
+    procedure RundallesrMIClick(Sender: TObject);
+    procedure EsrganMIClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     FMainFeedMT: TFDMemTable;
+    procedure UpscaleImage(AName: string; AVersion: string);
   end;
 
 implementation
@@ -138,6 +156,32 @@ begin
   MainForm.PromptMemo.Lines.Text := DescLabel.Text;
 end;
 
+procedure TCardFrame.EsrganMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, 'c263265e04b16fda1046d1828997fc27b46610647a3348df1c72fbffbdbac912');
+end;
+
+procedure TCardFrame.UpscaleButtonClick(Sender: TObject);
+begin
+  CodeFormerMIClick(CodeFormerMI);
+end;
+
+procedure TCardFrame.UpscaleImage(AName: string; AVersion: string);
+begin
+  var MS := TMemoryStream.Create;
+  try
+  FeedImage.Bitmap.SaveToStream(MS);
+  MainForm.PredictionFromImageStream(AVersion,NameLabel.Text + ' - ' + AName,DescLabel.Text,MS);
+  finally
+    MS.Free;
+  end;
+end;
+
+procedure TCardFrame.CodeFormerMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, '7de2ea26c616d5bf2245ad0d5e24f0ff9a6204578a5c876db53142edd9d2cd56');
+end;
+
 procedure TCardFrame.CommentButtonClick(Sender: TObject);
 begin
   // Comment
@@ -186,6 +230,11 @@ begin
   FeedImage.Width := Self.Width;
 end;
 
+procedure TCardFrame.GFPGANMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, '9283608cc6b7be6b65a8e44983db012355fde4132009bf99d976b2f0896856a3');
+end;
+
 procedure TCardFrame.GoButtonClick(Sender: TObject);
 begin
   // Go
@@ -199,6 +248,26 @@ end;
 procedure TCardFrame.ProfileCircleClick(Sender: TObject);
 begin
   // View Profile
+end;
+
+procedure TCardFrame.RealESRGANMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, '42fed1c4974146d4d2414e2be2c5277c7fcf05fcc3a73abf41610695738c1d7b');
+end;
+
+procedure TCardFrame.RundallesrMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, '32fdb2231d00a10d33754cc2ba794a2dfec94216579770785849ce6f149dbc69');
+end;
+
+procedure TCardFrame.Swin2SRMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, 'a01b0512004918ca55d02e554914a9eca63909fa83a29ff0f115c78a7045574f');
+end;
+
+procedure TCardFrame.SwinirMIClick(Sender: TObject);
+begin
+  UpscaleImage(TMenuItem(Sender).Text, '660d922d33153019e8c263a3bba265de882e7f4f70396546b6c9c8f9d47a021a');
 end;
 
 procedure TCardFrame.Timer1Timer(Sender: TObject);

@@ -25,6 +25,7 @@ object DM: TDM
       item
         Kind = pkREQUESTBODY
         Name = 'body743FA4081F4C440C91A2D44F7691E32F'
+        Options = [poDoNotEncode]
         Value = 
           '{"version": "%version%","input": {"prompt": "%prompt%","negative' +
           '_prompt":"%nprompt%"}}'
