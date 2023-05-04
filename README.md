@@ -17,6 +17,10 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Anything v4
 * Waifu Diffusion
 
+Includes the ability to enhance a prompt using AI via the DistilGPT2 Stable Diffusion V2 model.
+
+Copy a FMX TImage directly from the client into the Delphi IDE!
+
 Built with [Delphi](https://www.embarcadero.com/products/delphi/) using the FireMonkey framework this client works on Windows, macOS, and Linux (and maybe Android+iOS) with a single codebase and single UI. At the moment it is specifically set up for Windows.
 
 It also features a REST integration with Replicate.com for providing Generate Image functionality within the client. You need to sign up for an API key to access that functionality.
