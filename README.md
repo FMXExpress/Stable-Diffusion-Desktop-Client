@@ -6,6 +6,7 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Stable Diffusion 1.5
 * DreamShaper
 * Kandinsky-2
+* DeepFloyd IF
 * OpenJourney
 * Analog Diffusion
 * PortraitPlus
@@ -16,6 +17,16 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Anything v3
 * Anything v4
 * Waifu Diffusion
+
+Upscaling / facefixing from:
+
+* Codeformer (facefix)
+* Real-ESRGAN
+* Swin2SR
+* GFPGAN (facefix)
+* Swinir
+* Rundalle-sr
+* Esrgan
 
 Includes the ability to enhance a prompt using AI via the DistilGPT2 Stable Diffusion V2 model.
 
@@ -31,6 +42,12 @@ It also features a REST integration with Replicate.com for providing Generate Im
 Requires [Skia4Delphi](https://github.com/skia4delphi/skia4delphi) to compile.
 
 Other Delphi AI clients:
+
+[AI Code Translator](https://github.com/FMXExpress/AI-Code-Translator)
+
+[AI Playground](https://github.com/FMXExpress/AI-Playground-DesktopClient)
+
+[Song Writer AI](https://github.com/FMXExpress/Song-Writer-AI)
 
 [Stable Diffusion Text To Image Prompts](https://github.com/FMXExpress/Stable-Diffusion-Text-To-Image-Prompts)
 
