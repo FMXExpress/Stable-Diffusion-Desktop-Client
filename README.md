@@ -17,6 +17,22 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Anything v3
 * Anything v4
 * Waifu Diffusion
+* HASDX
+* Deliberate
+* Vintedois Diffusion
+* WavyFusion
+* Eimis Anime Diffusion
+* RPG
+* Realistic Vision
+* Opengen
+* Cyberrealistic
+* Meinamix
+* Edge of Realism
+* Lyriel
+* BRA
+* Babes
+* Neverending Dream
+* AbsoluteBeauty
 
 Upscaling / facefixing from:
 
@@ -27,6 +43,8 @@ Upscaling / facefixing from:
 * Swinir
 * Rundalle-sr
 * Esrgan
+
+Supports Image2Image on a subset of models.
 
 Includes the ability to enhance a prompt using AI via the DistilGPT2 Stable Diffusion V2 model.
 
