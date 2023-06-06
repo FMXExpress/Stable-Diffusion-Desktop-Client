@@ -1,4 +1,4 @@
-# Stable-Diffusion-Desktop-Client
+# Stable Diffusion Desktop Client
 Stable Diffusion Desktop client for Windows, macOS, and Linux built in Embarcadero Delphi.
 
 The Stable Diffusion Desktop client is a powerful UI for creating images using Stable Diffusion and models fine-tuned on Stable Diffusion like:
