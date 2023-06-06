@@ -59,6 +59,14 @@ type
     EnhanceButton: TButton;
     EnhanceTimer: TTimer;
     EnhanceMemo: TMemo;
+    Label6: TLabel;
+    ImageEdit: TEdit;
+    Layout3: TLayout;
+    OpenButton: TButton;
+    OpenDialog: TOpenDialog;
+    StrengthTB: TTrackBar;
+    StrengthLabel: TLabel;
+    Img2ImgLayout: TLayout;
     procedure ScrollLeftButtonClick(Sender: TObject);
     procedure ScrollRightButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -69,6 +77,9 @@ type
     procedure SessionsCBChange(Sender: TObject);
     procedure EnhanceButtonClick(Sender: TObject);
     procedure EnhanceTimerTimer(Sender: TObject);
+    procedure OpenButtonClick(Sender: TObject);
+    procedure StrengthTBChange(Sender: TObject);
+    procedure VComboBoxChange(Sender: TObject);
   private
     { Private declarations }
     RanOnce: Boolean;
@@ -82,6 +93,7 @@ type
     procedure AppIdle(Sender: TObject; var Done: Boolean);
     procedure NewSession(ASession: String);
     procedure PredictionFromImageStream(AVersion, AName, ADesc: String; AMemoryStream: TMemoryStream);
+    procedure DeleteCard(Sender: TObject);
   end;
 
 var
@@ -93,6 +105,14 @@ implementation
 
 uses
   System.Threading, System.Hash, System.IOUtils, uCircle, uCard, uDM;
+
+procedure TMainForm.DeleteCard(Sender: TObject);
+begin
+  TTask.Run(procedure begin
+    TLayout(TCardFrame(Sender).Parent).Parent := nil;
+    FreeAndNil(TLayout(TCardFrame(Sender).Parent));
+  end);
+end;
 
 procedure TMainForm.Restore;
 var
@@ -152,30 +172,33 @@ begin
     DM.RestRequest1.Execute;
 
     TThread.Synchronize(nil,procedure begin
-      var LId := DM.FDMemTable1.FieldByName('id').AsWideString;
+      if DM.FDMemTable1.FindField('id')<>nil then
+      begin
+        var LId := DM.FDMemTable1.FieldByName('id').AsWideString;
 
-      var LScene := TLayout.Create(Self);
-      var LCard := TCardFrame.Create(Self);
-      LCard.Name := 'Card'+FCard.ToString;
-      LCard.Hint := LId;
-      LCard.FMainFeedMT := FeedMT;
-      LCard.Align := TAlignLayout.Client;
-      LCard.DataMT.DisableControls;
-      LCard.DataMT.Append;
-      LCard.DataMT.CopyRecord(TemplateMT);
-      LCard.DataMT.FieldByName('Name').AsString := AName;
-      LCard.DataMT.FieldByName('Description').AsString := ADesc;
-     // LCard.DataMT.FieldByName('Description').AsString := LOutput;
-      LCard.DataMT.Post;
-      LCard.DataMT.EnableControls;
-      LCard.Position.Y := 999999999;
-      LCard.NameLabel.AutoSize := True;
-      LScene.Height := LCard.Height;
-      LCard.Parent := LScene;
-      LScene.Align := TAlignLayout.Top;
-      LScene.Parent := FeedVSB;
+        var LScene := TLayout.Create(Self);
+        var LCard := TCardFrame.Create(Self);
+        LCard.Name := 'Card'+FCard.ToString;
+        LCard.Hint := LId;
+        LCard.FMainFeedMT := FeedMT;
+        LCard.Align := TAlignLayout.Client;
+        LCard.DataMT.DisableControls;
+        LCard.DataMT.Append;
+        LCard.DataMT.CopyRecord(TemplateMT);
+        LCard.DataMT.FieldByName('Name').AsString := AName;
+        LCard.DataMT.FieldByName('Description').AsString := ADesc;
+       // LCard.DataMT.FieldByName('Description').AsString := LOutput;
+        LCard.DataMT.Post;
+        LCard.DataMT.EnableControls;
+        LCard.Position.Y := 999999999;
+        LCard.NameLabel.AutoSize := True;
+        LScene.Height := LCard.Height;
+        LCard.Parent := LScene;
+        LScene.Align := TAlignLayout.Top;
+        LScene.Parent := FeedVSB;
 
-      Inc(FCard);
+        Inc(FCard);
+      end;
     end);
 
     LMS.Free;
@@ -206,36 +229,93 @@ end;
 
 procedure TMainForm.CameraButtonClick(Sender: TObject);
 begin
+  if APIKeyEdit.Text='' then
+  begin
+    ShowMessage('Please enter an API key.');
+    Exit;
+  end;
+
+  GenerateButton.Enabled := False;
+
+
+  TTask.Run(procedure begin
+
   DM.RestRequest1.Params[0].Value := 'Token ' + APIKeyEdit.Text;
-  DM.RestRequest1.Params[1].Value := PredictionMemo.Lines.Text.Replace('%prompt%',PromptMemo.Lines.Text)
-  .Replace('%nprompt%',NegativePromptMemo.Lines.Text)
-  .Replace('%version%',VersionEdit.Text);
+
+  if (VComboBox.Selected<>nil) then
+  begin
+    if VComboBox.Selected.Text.Contains('Img2Img') then
+    begin
+      var LMS := TMemoryStream.Create;
+      if ImageEdit.Text.Substring(0,4)<>'http' then
+        LMS.LoadFromFile(ImageEdit.Text);
+
+      var LImg2ImgJson := '{"version": "%version%","input": {"prompt": "%prompt%","negative_prompt":"%nprompt%", "strength":%strength%, "image":"%base64%"}}';
+
+      DM.RestRequest1.Params[1].Value := LImg2ImgJson.Replace('%prompt%',PromptMemo.Lines.Text)
+      .Replace('%nprompt%',NegativePromptMemo.Lines.Text)
+      .Replace('%version%',VersionEdit.Text)
+      .Replace('%strength%',Format('%.2f',[StrengthTB.Value]));
+
+
+      if ImageEdit.Text.Substring(0,4)<>'http' then
+        DM.RestRequest1.Params[1].Value := DM.RestRequest1.Params[1].Value.Replace('%base64%',DM.MemoryStreamToBase64(LMS)).Replace(#13#10,'')
+      else
+        DM.RestRequest1.Params[1].Value := DM.RestRequest1.Params[1].Value.Replace('%base64%',ImageEdit.Text);
+
+      LMS.Free;
+    end
+    else
+    begin
+      DM.RestRequest1.Params[1].Value := PredictionMemo.Lines.Text.Replace('%prompt%',PromptMemo.Lines.Text)
+      .Replace('%nprompt%',NegativePromptMemo.Lines.Text)
+      .Replace('%version%',VersionEdit.Text);
+    end;
+  end;
 
   DM.RestRequest1.Execute;
-  FId := DM.FDMemTable1.FieldByName('id').AsWideString;
+  if DM.FDMemTable1.FindField('id')<>nil then
+  begin
+    FId := DM.FDMemTable1.FieldByName('id').AsWideString;
 
-  var LScene := TLayout.Create(Self);
-  var LCard := TCardFrame.Create(Self);
-  LCard.Name := 'Card'+FCard.ToString;
-  LCard.Hint := FId;
-  LCard.FMainFeedMT := FeedMT;
-  LCard.Align := TAlignLayout.Client;
-  LCard.DataMT.DisableControls;
-  LCard.DataMT.Append;
-  LCard.DataMT.CopyRecord(TemplateMT);
-  LCard.DataMT.FieldByName('Name').AsString := VersionMT.FieldByName('Name').AsString;
-  LCard.DataMT.FieldByName('Description').AsString := PromptMemo.Lines.Text;
- // LCard.DataMT.FieldByName('Description').AsString := LOutput;
-  LCard.DataMT.Post;
-  LCard.DataMT.EnableControls;
-  LCard.Position.Y := 999999999;
-  LCard.NameLabel.AutoSize := True;
-  LScene.Height := LCard.Height;
-  LCard.Parent := LScene;
-  LScene.Align := TAlignLayout.Top;
-  LScene.Parent := FeedVSB;
+    TThread.Synchronize(nil,procedure begin
+      var LScene := TLayout.Create(Self);
+      var LCard := TCardFrame.Create(Self);
+      LCard.Name := 'Card'+FCard.ToString;
+      LCard.Hint := FId;
+      LCard.FMainFeedMT := FeedMT;
+      LCard.Align := TAlignLayout.Client;
+      LCard.DataMT.DisableControls;
+      LCard.DataMT.Append;
+      LCard.DataMT.CopyRecord(TemplateMT);
+      LCard.DataMT.FieldByName('Name').AsString := VersionMT.FieldByName('Name').AsString;
+      LCard.DataMT.FieldByName('Description').AsString := PromptMemo.Lines.Text;
+     // LCard.DataMT.FieldByName('Description').AsString := LOutput;
+      LCard.DataMT.Post;
+      LCard.DataMT.EnableControls;
+      LCard.Position.Y := 999999999;
+      LCard.NameLabel.AutoSize := True;
+      LScene.Height := LCard.Height;
+      LCard.Parent := LScene;
+      LScene.Align := TAlignLayout.Top;
+      LScene.Parent := FeedVSB;
 
-  Inc(FCard);
+      Inc(FCard);
+
+      GenerateButton.Enabled := True;
+    end);
+
+  end
+  else
+  begin
+    TThread.Synchronize(nil,procedure begin
+      ShowMessage('A valid response was not received.');
+      GenerateButton.Enabled := True;
+    end);
+  end;
+
+  end);
+
 end;
 
 procedure TMainForm.EnhanceButtonClick(Sender: TObject);
@@ -244,8 +324,12 @@ begin
   DM.RestRequest3.Params[0].Value := 'Token ' + APIKeyEdit.Text;
   DM.RestRequest3.Params[1].Value := EnhanceMemo.Lines.Text.Replace('%prompt%',PromptMemo.Lines.Text);
   DM.RestRequest3.Execute;
-  DM.RestRequest4.Resource := DM.FDMemTable3.FieldByName('id').AsString;
-  EnhanceTimer.Enabled := True;
+  try
+    DM.RestRequest4.Resource := DM.FDMemTable3.FieldByName('id').AsString;
+    EnhanceTimer.Enabled := True;
+  except
+    ShowMessage('Enhance failed');
+  end;
 end;
 
 procedure TMainForm.EnhanceTimerTimer(Sender: TObject);
@@ -313,6 +397,15 @@ begin
      end);
 end;
 
+procedure TMainForm.OpenButtonClick(Sender: TObject);
+begin
+  if OpenDialog.Execute then
+  begin
+    ImageEdit.Text := OpenDialog.FileName;
+
+  end;
+end;
+
 procedure TMainForm.ScrollLeftButtonClick(Sender: TObject);
 begin
   StoryHSB.ScrollBy(Trunc(StoryHSB.Height*0.8), 0);
@@ -342,6 +435,26 @@ begin
     end;
 
     Restore;
+  end;
+end;
+
+procedure TMainForm.StrengthTBChange(Sender: TObject);
+begin
+  StrengthLabel.Text := 'Strength: ' + FloatToStr(StrengthTB.Value);
+end;
+
+procedure TMainForm.VComboBoxChange(Sender: TObject);
+begin
+  if (VComboBox.Selected<>nil) then
+  begin
+    if VComboBox.Selected.Text.Contains('Img2Img') then
+    begin
+      Img2ImgLayout.Visible := True;
+    end
+    else
+    begin
+      Img2ImgLayout.Visible := False;
+    end;
   end;
 end;
 

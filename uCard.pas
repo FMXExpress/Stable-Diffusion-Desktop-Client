@@ -64,6 +64,10 @@ type
     SwinirMI: TMenuItem;
     RundallesrMI: TMenuItem;
     EsrganMI: TMenuItem;
+    CopyBitmapButton: TButton;
+    UtilsMenu: TPopupMenu;
+    DeleteMI: TMenuItem;
+    SendImg2ImgButton: TButton;
     procedure FollowButtonClick(Sender: TObject);
     procedure LoveButtonClick(Sender: TObject);
     procedure CommentButtonClick(Sender: TObject);
@@ -86,6 +90,9 @@ type
     procedure SwinirMIClick(Sender: TObject);
     procedure RundallesrMIClick(Sender: TObject);
     procedure EsrganMIClick(Sender: TObject);
+    procedure CopyBitmapButtonClick(Sender: TObject);
+    procedure DeleteMIClick(Sender: TObject);
+    procedure SendImg2ImgButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -141,6 +148,11 @@ begin
   end;
 end;
 
+procedure TCardFrame.DeleteMIClick(Sender: TObject);
+begin
+  MainForm.DeleteCard(Self);
+end;
+
 procedure TCardFrame.DownloadButtonClick(Sender: TObject);
 begin
   // Download
@@ -190,6 +202,17 @@ end;
 procedure TCardFrame.CommentsLabelClick(Sender: TObject);
 begin
   // View Comments
+end;
+
+procedure TCardFrame.CopyBitmapButtonClick(Sender: TObject);
+var
+  clp: IFMXClipboardService;
+begin
+  if TPlatformServices.Current.SupportsPlatformService(IFMXClipboardService) then
+  begin
+    clp := IFMXClipboardService(TPlatformServices.Current.GetPlatformService(IFMXClipboardService));
+    clp.SetClipboard(FeedImage.Bitmap);
+  end;
 end;
 
 procedure TCardFrame.CopyImageButtonClick(Sender: TObject);
@@ -258,6 +281,13 @@ end;
 procedure TCardFrame.RundallesrMIClick(Sender: TObject);
 begin
   UpscaleImage(TMenuItem(Sender).Text, '32fdb2231d00a10d33754cc2ba794a2dfec94216579770785849ce6f149dbc69');
+end;
+
+procedure TCardFrame.SendImg2ImgButtonClick(Sender: TObject);
+begin
+  var LFilename := ExtractFilePath(ParamStr(0)) + 'img2img.png';
+  FeedImage.Bitmap.SaveToFile(LFilename);
+  MainForm.ImageEdit.Text := LFilename;
 end;
 
 procedure TCardFrame.Swin2SRMIClick(Sender: TObject);

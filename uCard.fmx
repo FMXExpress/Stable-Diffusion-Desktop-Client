@@ -12,6 +12,7 @@ object CardFrame: TCardFrame
     TabOrder = 0
     object MenuButton: TButton
       Align = Right
+      PopupMenu = UtilsMenu
       Position.X = 554.000000000000000000
       Size.Width = 44.000000000000000000
       Size.Height = 41.000000000000000000
@@ -120,7 +121,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'organizetoolbutton'
-      TabOrder = 6
+      TabOrder = 8
       OnClick = DownloadButtonClick
     end
     object GoButton: TButton
@@ -154,7 +155,7 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'composetoolbutton'
-      TabOrder = 5
+      TabOrder = 6
       OnClick = EditPromptButtonClick
     end
     object CopyPromptButton: TButton
@@ -166,19 +167,19 @@ object CardFrame: TCardFrame
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'actiontoolbutton'
-      TabOrder = 4
+      TabOrder = 5
       OnClick = CopyPromptButtonClick
     end
     object CopyImageButton: TButton
       Align = Left
       Hint = 'Copy as TImage Component'
       Opacity = 0.500000000000000000
-      Position.X = 88.000000000000000000
+      Position.X = 132.000000000000000000
       Size.Width = 44.000000000000000000
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = 'escapetoolbutton'
-      TabOrder = 3
+      StyleLookup = 'forwardtoolbutton'
+      TabOrder = 4
       OnClick = CopyImageButtonClick
     end
     object UpscaleButton: TButton
@@ -186,13 +187,37 @@ object CardFrame: TCardFrame
       Hint = 'Upscaling (right-click for more)'
       Opacity = 0.500000000000000000
       PopupMenu = UpscaleMenu
-      Position.X = 132.000000000000000000
+      Position.X = 176.000000000000000000
       Size.Width = 44.000000000000000000
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'additembutton'
       TabOrder = 2
       OnClick = UpscaleButtonClick
+    end
+    object CopyBitmapButton: TButton
+      Align = Left
+      Hint = 'Copy as Bitmap'
+      Opacity = 0.500000000000000000
+      Position.X = 88.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'escapetoolbutton'
+      TabOrder = 3
+      OnClick = CopyBitmapButtonClick
+    end
+    object SendImg2ImgButton: TButton
+      Align = Left
+      Hint = 'Image 2 Image'
+      Opacity = 0.500000000000000000
+      Position.X = 220.000000000000000000
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'nexttoolbutton'
+      TabOrder = 7
+      OnClick = SendImg2ImgButtonClick
     end
   end
   object DescLabel: TLabel
@@ -321,6 +346,14 @@ object CardFrame: TCardFrame
     object EsrganMI: TMenuItem
       Text = 'Esrgan'
       OnClick = EsrganMIClick
+    end
+  end
+  object UtilsMenu: TPopupMenu
+    Left = 442
+    Top = 385
+    object DeleteMI: TMenuItem
+      Text = 'Delete'
+      OnClick = DeleteMIClick
     end
   end
   object DataMT: TFDMemTable
