@@ -33,6 +33,8 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Babes
 * Neverending Dream
 * AbsoluteBeauty
+* Reality Vision v3.0
+* Illuminutty Diffusion
 
 Upscaling / facefixing from:
 
