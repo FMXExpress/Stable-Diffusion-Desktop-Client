@@ -354,6 +354,16 @@ begin
     Timer1.Enabled := False;
   end
   else
+  if LStatus='failed' then
+  begin
+    DataMT.Edit;
+    DataMT.FieldByName('Description').AsString := 'failed';
+    DataMT.Post;
+    ProgressBar.Visible := False;
+
+    Timer1.Enabled := False;
+  end
+  else
   begin
     if ProgressBar.Value=ProgressBar.Max then
       ProgressBar.Value := ProgressBar.Min

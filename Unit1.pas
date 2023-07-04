@@ -67,6 +67,15 @@ type
     StrengthTB: TTrackBar;
     StrengthLabel: TLabel;
     Img2ImgLayout: TLayout;
+    Layout7: TLayout;
+    WidthCB: TComboBox;
+    HeightCB: TComboBox;
+    Label16: TLabel;
+    Label7: TLabel;
+    SizeMT: TFDMemTable;
+    BindSourceDB3: TBindSourceDB;
+    LinkFillControlToField1: TLinkFillControlToField;
+    LinkFillControlToField2: TLinkFillControlToField;
     procedure ScrollLeftButtonClick(Sender: TObject);
     procedure ScrollRightButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -250,12 +259,14 @@ begin
       if ImageEdit.Text.Substring(0,4)<>'http' then
         LMS.LoadFromFile(ImageEdit.Text);
 
-      var LImg2ImgJson := '{"version": "%version%","input": {"prompt": "%prompt%","negative_prompt":"%nprompt%", "strength":%strength%, "image":"%base64%"}}';
+      var LImg2ImgJson := '{"version": "%version%","input": {"prompt": "%prompt%","negative_prompt":"%nprompt%", "strength":%strength%, "image":"%base64%", "width":%width%, "height":%height%}}';
 
       DM.RestRequest1.Params[1].Value := LImg2ImgJson.Replace('%prompt%',PromptMemo.Lines.Text)
       .Replace('%nprompt%',NegativePromptMemo.Lines.Text)
       .Replace('%version%',VersionEdit.Text)
-      .Replace('%strength%',Format('%.2f',[StrengthTB.Value]));
+      .Replace('%width%',WidthCB.Selected.Text)
+      .Replace('%height%',HeightCB.Selected.Text)
+      .Replace('%strength%',Format('%.2f',[StrengthTB.Value]).Replace(',','.'));
 
 
       if ImageEdit.Text.Substring(0,4)<>'http' then
@@ -269,6 +280,8 @@ begin
     begin
       DM.RestRequest1.Params[1].Value := PredictionMemo.Lines.Text.Replace('%prompt%',PromptMemo.Lines.Text)
       .Replace('%nprompt%',NegativePromptMemo.Lines.Text)
+      .Replace('%width%',WidthCB.Selected.Text)
+      .Replace('%height%',HeightCB.Selected.Text)
       .Replace('%version%',VersionEdit.Text);
     end;
   end;
@@ -362,6 +375,8 @@ begin
   if TFile.Exists(TPath.Combine(TPath.GetDocumentsPath,'sd_sessions.fds')) then
     SessionsMT.LoadFromFile(TPath.Combine(TPath.GetDocumentsPath,'sd_sessions.fds'));
 
+  WidthCB.ItemIndex := 4;
+  HeightCB.ItemIndex := 6;
 
   Application.OnIdle := AppIdle;
 end;

@@ -107,7 +107,7 @@ Coordinates=538,80,69,51
 Coordinates=653,182,261,123
 
 [SessionsMT]
-Coordinates=938,370,74,33
+Coordinates=1106,390,74,33
 Visible=True
 
 [DM.RESTClient1]
@@ -126,7 +126,7 @@ Coordinates=537,516,95,69
 Coordinates=62,461,83,51
 
 [BindSourceDB2]
-Coordinates=854,360,92,87
+Coordinates=1022,380,92,87
 
 [SessionsCB]
 Coordinates=508,374,84,123
@@ -136,5 +136,61 @@ Visible=True
 Coordinates=508,604,108,51
 
 [EmptyVSBLayout]
-Coordinates=447,322,53,33
+Coordinates=447,322,100,33
+
+[OpenButton]
+Coordinates=106,224,73,51
+
+[ImageEdit]
+Coordinates=384,444,63,51
+
+[StrengthTB]
+Coordinates=384,374,70,51
+
+[Layout3]
+Coordinates=508,220,53,33
+
+[OpenDialog]
+Coordinates=585,220,72,33
+
+[EnhanceButton]
+Coordinates=96,70,90,51
+
+[Img2ImgLayout]
+Coordinates=695,152,90,33
+
+[EnhanceMemo]
+Coordinates=0,0,87,51
+
+[StrengthLabel]
+Coordinates=508,150,83,51
+
+[EnhanceTimer]
+Coordinates=695,204,85,33
+
+[Label6]
+Coordinates=220,461,46,51
+
+[Layout7]
+Coordinates=449,482,53,33
+
+[Label16]
+Coordinates=161,461,52,51
+
+[SizeMT]
+Coordinates=180,0,49,33
+Visible=False
+
+[WidthCB]
+Coordinates=20,0,84,123
+Visible=True
+
+[HeightCB]
+Coordinates=260,40,84,123
+
+[Label7]
+Coordinates=13,461,46,51
+
+[BindSourceDB3]
+Coordinates=180,0,92,105
 
