@@ -63,6 +63,12 @@ Requires [Skia4Delphi](https://github.com/skia4delphi/skia4delphi) to compile.
 
 Other Delphi AI clients:
 
+[CodeDroidAI](https://github.com/FMXExpress/CodeDroidAI)
+
+[ControlNet Sketch To Image](https://github.com/FMXExpress/ControlNet-Sketch-To-Image)
+
+[AutoBlogAI](https://github.com/FMXExpress/AutoBlogAI)
+
 [AI Code Translator](https://github.com/FMXExpress/AI-Code-Translator)
 
 [AI Playground](https://github.com/FMXExpress/AI-Playground-DesktopClient)
