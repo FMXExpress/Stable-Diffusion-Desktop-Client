@@ -23,7 +23,7 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * WavyFusion
 * Eimis Anime Diffusion
 * RPG
-* Realistic Vision
+* Realistic Vision v2.0
 * Opengen
 * Cyberrealistic
 * Meinamix
@@ -33,7 +33,7 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Babes
 * Neverending Dream
 * AbsoluteBeauty
-* Reality Vision v3.0
+* Realistic Vision v3.0
 * Illuminutty Diffusion
 
 Upscaling / facefixing from:
