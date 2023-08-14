@@ -225,6 +225,8 @@ begin
     begin
       RanOnce := True;
 
+      VComboBox.ItemIndex := VComboBox.Items.IndexOf('SDXL');
+
       var LSessionFileName := THashMD5.GetHashString(SessionsMT.FieldByName('Name').AsString);
       FSessionFile := TPath.Combine(TPath.GetDocumentsPath,LSessionFileName+'.fds');
       if TFile.Exists(TPath.Combine(TPath.GetDocumentsPath,LSessionFileName+'.fds')) then
@@ -233,6 +235,7 @@ begin
       end;
 
       Restore;
+
     end;
 end;
 
@@ -462,7 +465,7 @@ procedure TMainForm.VComboBoxChange(Sender: TObject);
 begin
   if (VComboBox.Selected<>nil) then
   begin
-    if VComboBox.Selected.Text.Contains('Img2Img') then
+    if VComboBox.Selected.Text.Contains('Img2Img') OR VComboBox.Selected.Text.Contains('SDXL') then
     begin
       Img2ImgLayout.Visible := True;
     end

@@ -129,3 +129,6 @@ Coordinates=497,105,103,51
 [MainForm.SessionsMT]
 Visible=False
 
+[MainForm.SizeMT]
+Visible=False
+
