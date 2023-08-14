@@ -23,7 +23,7 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * WavyFusion
 * Eimis Anime Diffusion
 * RPG
-* Realistic Vision
+* Realistic Vision v2.0
 * Opengen
 * Cyberrealistic
 * Meinamix
@@ -33,6 +33,8 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * Babes
 * Neverending Dream
 * AbsoluteBeauty
+* Realistic Vision v3.0
+* Illuminutty Diffusion
 
 Upscaling / facefixing from:
 
@@ -60,6 +62,12 @@ It also features a REST integration with Replicate.com for providing Generate Im
 Requires [Skia4Delphi](https://github.com/skia4delphi/skia4delphi) to compile.
 
 Other Delphi AI clients:
+
+[CodeDroidAI](https://github.com/FMXExpress/CodeDroidAI)
+
+[ControlNet Sketch To Image](https://github.com/FMXExpress/ControlNet-Sketch-To-Image)
+
+[AutoBlogAI](https://github.com/FMXExpress/AutoBlogAI)
 
 [AI Code Translator](https://github.com/FMXExpress/AI-Code-Translator)
 
