@@ -225,7 +225,7 @@ begin
     begin
       RanOnce := True;
 
-      VComboBox.ItemIndex := VComboBox.Items.IndexOf('SDXL');
+      //VComboBox.ItemIndex := VComboBox.Items.IndexOf('SDXL');
 
       var LSessionFileName := THashMD5.GetHashString(SessionsMT.FieldByName('Name').AsString);
       FSessionFile := TPath.Combine(TPath.GetDocumentsPath,LSessionFileName+'.fds');
