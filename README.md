@@ -3,6 +3,7 @@ Stable Diffusion Desktop client for Windows, macOS, and Linux built in Embarcade
 
 The Stable Diffusion Desktop client is a powerful UI for creating images using Stable Diffusion and models fine-tuned on Stable Diffusion like:
 
+* SDXL
 * Stable Diffusion 1.5
 * DreamShaper
 * Kandinsky-2
@@ -35,6 +36,7 @@ The Stable Diffusion Desktop client is a powerful UI for creating images using S
 * AbsoluteBeauty
 * Realistic Vision v3.0
 * Illuminutty Diffusion
+* Realistic Vision v5.1
 
 Upscaling / facefixing from:
 
